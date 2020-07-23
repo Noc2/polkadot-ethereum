@@ -3,7 +3,7 @@ module github.com/vgeddes/scratch
 go 1.14
 
 require (
-	github.com/centrifuge/go-substrate-rpc-client v1.1.0
+	github.com/centrifuge/go-substrate-rpc-client v2.0.0-alpha.5+incompatible
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/ethereum/go-ethereum v1.9.17 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect

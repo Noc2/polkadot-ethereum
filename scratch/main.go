@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Snowfork/polkadot-ethereum/scratch/crypto/sr25519"
 	gsrpc "github.com/centrifuge/go-substrate-rpc-client"
 	"github.com/centrifuge/go-substrate-rpc-client/signature"
 	gsrpcTypes "github.com/centrifuge/go-substrate-rpc-client/types"
@@ -30,8 +31,6 @@ func main() {
 		panic(err)
 	}
 
-	// TODO: The type from the example doesn't exist: gsrpcTypes.NewUCompactFromUInt(10))
-	// amount := gsrpcTypes.NewI256(*big.NewInt(10)) // TODO: using this type instead
 	c, err := gsrpcTypes.NewCall(meta, "Balances.transfer", testAccount, gsrpcTypes.NewUCompactFromUInt(10))
 	if err != nil {
 		panic(err)
@@ -50,13 +49,30 @@ func main() {
 		panic(err)
 	}
 
-	// var TestKeyringPairAlice = KeyringPair{
-	// 	URI:       "//Alice",
-	// 	PublicKey: []byte{0xd4, 0x35, 0x93, 0xc7, 0x15, 0xfd, 0xd3, 0x1c, 0x61, 0x14, 0x1a, 0xbd, 0x4, 0xa9, 0x9f, 0xd6, 0x82, 0x2c, 0x85, 0x58, 0x85, 0x4c, 0xcd, 0xe3, 0x9a, 0x56, 0x84, 0xe7, 0xa5, 0x6d, 0xa2, 0x7d}, //nolint:lll
-	// 	Address:   "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+	// --------------------------------------- OUR ACCOUNT INFORMATION ---------------------------------------
+	// Secret phrase `coral piece session toilet february finger furnace shine metal advance summer health` is account:
+	//   Network ID/version: substrate
+	//   Secret seed:        0x2d268c3c96800f649d9b91f20e4fdf3f25b08fb0051f126942bd195d94ba844e
+	//   Public key (hex):   0x46e7708880bbe783e6e22ee29fd6c07d76ea44ff36b6401a88bccadd30135c74
+	//   Account ID:         0x46e7708880bbe783e6e22ee29fd6c07d76ea44ff36b6401a88bccadd30135c74
+	//   SS58 Address:       5Dffxh5ZwZzHiFNsWE1XDkvVAnEfcW1hc8qGcBJSZcfWi8JN
+	// -------------------------------------------------------------------------------------------------------
+
+	seedPhrase := "coral piece session toilet february finger furnace shine metal advance summer health"
+	// seed := "0x2d268c3c96800f649d9b91f20e4fdf3f25b08fb0051f126942bd195d94ba844e"
+
+	network := "Development"
+	keyringPair, err := sr25519.GenerateKeypair(network)
+	if err != nil {
+		panic(err)
+	}
+
+	// keyringPair, err := signature.KeyringPairFromSecret()
+	// if err != nil {
+	// 	panic(err)
 	// }
 
-	key, err := gsrpcTypes.CreateStorageKey(meta, "System", "Account", signature.TestKeyringPairAlice.PublicKey, nil)
+	key, err := gsrpcTypes.CreateStorageKey(meta, "System", "Account", keyringPair.PublicKey, nil)
 	if err != nil {
 		panic(err)
 	}

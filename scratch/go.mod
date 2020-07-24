@@ -1,8 +1,10 @@
 module github.com/vgeddes/scratch
+// module github.com/Snowfork/polkadot-ethereum/scratch
 
 go 1.14
 
 require (
+	github.com/Snowfork/polkadot-ethereum v0.0.0-20200723222857-ad5fd5a50e82 // indirect
 	github.com/centrifuge/go-substrate-rpc-client v2.0.0-alpha.5+incompatible
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/ethereum/go-ethereum v1.9.17

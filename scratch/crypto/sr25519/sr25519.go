@@ -3,29 +3,30 @@ package sr25519
 import (
 	"crypto/rand"
 
-	"github.com/Snowfork/polkadot-ethereum/scratch/crypto"
+	// "github.com/Snowfork/polkadot-ethereum/scratch/crypto"
+	// "github.com/vgeddes/scratch/crypto"
 	"github.com/centrifuge/go-substrate-rpc-client/signature"
 	"github.com/centrifuge/go-substrate-rpc-client/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 
-var _ crypto.Keypair = &Keypair{}
+// var _ crypto.Keypair = &Keypair{}
 
 type Keypair struct {
 	keyringPair *signature.KeyringPair
 }
 
-func GenerateKeypair() (*Keypair, error) {
+func GenerateKeypair(network string) (*Keypair, error) {
 	data := make([]byte, 32)
 	_, err := rand.Read(data)
 	if err != nil {
 		return nil, err
 	}
-	return NewKeypairFromSeed("//" + hexutil.Encode(data))
+	return NewKeypairFromSeed("//"+hexutil.Encode(data), network)
 }
 
-func NewKeypairFromSeed(seed string) (*Keypair, error) {
-	kp, err := signature.KeyringPairFromSecret(seed)
+func NewKeypairFromSeed(seed, network string) (*Keypair, error) {
+	kp, err := signature.KeyringPairFromSecret(seed, network)
 	return &Keypair{&kp}, err
 }
 

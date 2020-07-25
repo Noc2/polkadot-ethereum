@@ -5,8 +5,8 @@ import (
 
 	// "github.com/Snowfork/polkadot-ethereum/scratch/crypto"
 	// "github.com/vgeddes/scratch/crypto"
-	"github.com/centrifuge/go-substrate-rpc-client/signature"
-	"github.com/centrifuge/go-substrate-rpc-client/types"
+	"github.com/Snowfork/go-substrate-rpc-client/signature"
+	"github.com/Snowfork/go-substrate-rpc-client/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 

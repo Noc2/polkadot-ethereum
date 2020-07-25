@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	gsrpc "github.com/centrifuge/go-substrate-rpc-client"
-	"github.com/centrifuge/go-substrate-rpc-client/signature"
-	gsrpcTypes "github.com/centrifuge/go-substrate-rpc-client/types"
+	gsrpc "github.com/Snowfork/go-substrate-rpc-client"
+	"github.com/Snowfork/go-substrate-rpc-client/signature"
+	gsrpcTypes "github.com/Snowfork/go-substrate-rpc-client/types"
 )
 
 const (
@@ -57,16 +57,7 @@ func main() {
 		panic(err)
 	}
 
-	// publicKeyOne := []byte{47, 140, 97, 41, 216, 22, 207, 81, 195, 116, 188, 127, 8, 195, 230, 62, 209, 86, 207, 120, 174, 251, 74, 101, 80, 217, 123, 135, 153, 121, 119, 238}
-	charliePubKey := []byte{0x90, 0xb5, 0xab, 0x20, 0x5c, 0x69, 0x74, 0xc9, 0xea, 0x84, 0x1b, 0xe6, 0x88, 0x86, 0x46, 0x33, 0xdc, 0x9c, 0xa8, 0xa3, 0x57, 0x84, 0x3e, 0xea, 0xcf, 0x23, 0x14, 0x64, 0x99, 0x65, 0xfe, 0x22}
-
-	var CharlieSr25519 = signature.KeyringPair{
-		URI:       "//Charlie",
-		Address:   "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y",
-		PublicKey: publicKeyOne,
-	}
-
-	key, err := gsrpcTypes.CreateStorageKey(meta, "System", "Account", publicKeyOne, nil)
+	key, err := gsrpcTypes.CreateStorageKey(meta, "System", "Account", signature.TestKeyringPairAlice.PublicKey, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -88,10 +79,9 @@ func main() {
 		Tip:         gsrpcTypes.NewUCompactFromUInt(0),
 	}
 
-	fmt.Printf("Sending %v from %#x to %#x with nonce %v", amount, CharlieSr25519.PublicKey, senderAccount.AsAccountID, nonce)
+	fmt.Printf("Sending %v from %#x to %#x with nonce %v", amount, signature.TestKeyringPairAlice.PublicKey, senderAccount.AsAccountID, nonce)
 
-	// Sign the transaction using Charlie's default account
-	err = ext.Sign(CharlieSr25519, o)
+	err = ext.Sign(signature.TestKeyringPairAlice, o)
 	if err != nil {
 		panic(err)
 	}

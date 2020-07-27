@@ -4,8 +4,8 @@
       "type": "ethereum",
       "id": "5777",
       "endpoint": "ws://localhost:7545/",
-      "operator": "0x115f6e2004d7b4ccd6b9d5ab34e30909e0f612cd",
-      "private_key": "794e8f209245ae5136fb13c88aa287b4e12a2ba03f73023564857071d8f0e3d8"
+      "operator": "0xcffeaaf7681c89285d65cfbe808b80e502696573",
+      "private_key": "598e9b38cbe35d4dbf1b6a488e193200373471a9b74d816cbb97b3b257163c88"
     },
     {
       "type": "substrate",

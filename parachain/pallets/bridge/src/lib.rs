@@ -1,16 +1,15 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
-use frame_support::{decl_module, decl_storage, decl_event, decl_error, dispatch};
+use frame_support::{decl_error, decl_event, decl_module, decl_storage, dispatch};
 use frame_system::{self as system, ensure_signed};
 
 use sp_std::prelude::*;
 
 use sp_runtime::traits::Hash;
 
-use common::{AppID, Message, Broker, Bridge};
+use common::{debug, AppID, Bridge, Broker, Message};
 
 pub trait Trait: system::Trait {
-
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 
 	type Broker: Broker;
@@ -48,10 +47,11 @@ decl_module! {
 
 		#[weight = 0]
 		pub fn send(origin, app_id: AppID, message: Message) -> dispatch::DispatchResult {
+			debug!("foo {:?}", app_id);
 			let who = ensure_signed(origin)?;
-			T::Broker::submit(app_id, message.clone())?;
-			
 			Self::deposit_event(RawEvent::MessageReceived(who, app_id, T::Hashing::hash(message.as_ref())));
+
+			T::Broker::submit(app_id, message.clone())?;
 			Ok(())
 		}
 
@@ -59,7 +59,6 @@ decl_module! {
 }
 
 impl<T: Trait> Bridge for Module<T> {
-
 	fn deposit_event(app_id: AppID, name: Vec<u8>, data: Vec<u8>) {
 		Self::deposit_event(RawEvent::AppEvent(app_id, name, data));
 	}

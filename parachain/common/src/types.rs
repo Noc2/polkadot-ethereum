@@ -4,7 +4,6 @@
 /// target applications.
 ///
 /// For example it could contain an Ethereum contract address.
-
 use sp_std::prelude::*;
 
 pub type AppID = [u8; 32];

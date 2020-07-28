@@ -8,6 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	keybase "github.com/snowfork/polkadot-ethereum/bridgerelayer/cmd/keybase/ethereum"
+	"github.com/snowfork/polkadot-ethereum/bridgerelayer/cmd/substrate"
 	"github.com/snowfork/polkadot-ethereum/bridgerelayer/cmd/types"
 	"github.com/snowfork/polkadot-ethereum/prover"
 )
@@ -70,7 +71,12 @@ func (er Router) buildPacket(id common.Address, eLog ctypes.Log) (types.Packet, 
 func (er Router) sendPacket(packet types.Packet) error {
 	log.Info("Sending packet:\n", packet)
 
-	// Bridge.Send(packet.AppID, packet.Message)
+	client, err := substrate.NewClient()
+	if err != nil {
+		panic(err)
+	}
+
+	client.SubmitExtrinsic(packet)
 
 	return nil
 }

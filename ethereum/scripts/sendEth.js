@@ -3,25 +3,25 @@ module.exports = async () => {
     const Web3 = require("web3");
   
     // Contract abstraction
-    const truffleContract = require("truffle-contract");
+    const truffleContract = require("@truffle/contract");
     const contract = truffleContract(
       require("../build/contracts/Bank.json")
     );
 
     // Default testing params
     const TARGET_APP_ID = Web3.utils.utf8ToHex(
-      "target application's unique substrate identifier"
+      "0xEec6E1D8Fb9e46666beF023A77d18902cbbFc4F2"
     );
     const RECIPIENT = Web3.utils.utf8ToHex(
         "1FRMM8PEiWXYax7rpS6X4XZX1aAAxSWx1CrKTyrVYhV24fg"
       );
     const AMOUNT = 10;
-
+    console.log("345")
     let provider = new Web3.providers.HttpProvider("http://localhost:7545");
   
     const web3 = new Web3(provider);
     contract.setProvider(web3.currentProvider);
-
+    console.log("SDFDFSD")
     try {
       // Get current accounts
       const accounts = await web3.eth.getAccounts();
